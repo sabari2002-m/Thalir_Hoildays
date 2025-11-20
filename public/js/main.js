@@ -54,7 +54,10 @@ function displayDestinations(destinations) {
     container.innerHTML = destinations.map(dest => `
         <div class="destination-card" onclick="window.location.href='/packages'">
             <div class="destination-image">
-                ${getDestinationEmoji(dest.name)}
+                ${dest.image_url && dest.image_url !== '/images/' + dest.name.toLowerCase() + '.jpg' 
+                    ? `<img src="${dest.image_url}" alt="${dest.name}" onerror="this.parentElement.innerHTML='${getDestinationEmoji(dest.name)}'">` 
+                    : `<div class="destination-image-placeholder">${getDestinationEmoji(dest.name)}</div>`
+                }
             </div>
             <div class="destination-info">
                 <h3>${dest.name}</h3>
@@ -388,7 +391,7 @@ function displayBookings(bookings) {
             </thead>
             <tbody>
                 ${bookings.map(booking => `
-                    <tr>
+                    <tr id="booking-row-${booking.id}">
                         <td>${booking.id}</td>
                         <td>${booking.customer_name}</td>
                         <td>${booking.email}</td>
@@ -405,11 +408,14 @@ function displayBookings(bookings) {
                         </td>
                         <td>${new Date(booking.created_at).toLocaleDateString()}</td>
                         <td>
-                            <select onchange="updateBookingStatus(${booking.id}, this.value)">
-                                <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Pending</option>
-                                <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
-                                <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
-                            </select>
+                            <div class="action-buttons">
+                                <select onchange="updateBookingStatus(${booking.id}, this.value)">
+                                    <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                                    <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                                </select>
+                                <button class="delete-btn" onclick="deleteBooking(${booking.id})">🗑️ Delete</button>
+                            </div>
                         </td>
                     </tr>
                     ${booking.special_requests ? `
@@ -449,6 +455,38 @@ async function updateBookingStatus(bookingId, newStatus) {
     } catch (error) {
         console.error('Error updating booking status:', error);
         alert('Error updating status. Please try again.');
+    }
+}
+
+// Delete booking
+async function deleteBooking(bookingId) {
+    if (!confirm('Are you sure you want to delete this booking? This action cannot be undone.')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/bookings/${bookingId}`, {
+            method: 'DELETE'
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Remove row with animation
+            const row = document.getElementById(`booking-row-${bookingId}`);
+            if (row) {
+                row.style.transition = 'opacity 0.3s ease';
+                row.style.opacity = '0';
+                setTimeout(() => {
+                    loadBookings();
+                }, 300);
+            }
+        } else {
+            alert('Error deleting booking');
+        }
+    } catch (error) {
+        console.error('Error deleting booking:', error);
+        alert('Error deleting booking. Please try again.');
     }
 }
 

@@ -185,6 +185,38 @@ app.put('/api/bookings/:id/status', (req, res) => {
   );
 });
 
+// Delete booking (admin)
+app.delete('/api/bookings/:id', (req, res) => {
+  db.run(
+    'DELETE FROM bookings WHERE id = ?',
+    [req.params.id],
+    function(err) {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json({ success: true, message: 'Booking deleted successfully' });
+    }
+  );
+});
+
+// Upload destination image endpoint
+app.post('/api/destinations/:id/image', (req, res) => {
+  const { image_url } = req.body;
+  
+  db.run(
+    'UPDATE destinations SET image_url = ? WHERE id = ?',
+    [image_url, req.params.id],
+    function(err) {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json({ success: true, message: 'Image updated successfully' });
+    }
+  );
+});
+
 // Serve HTML pages
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
