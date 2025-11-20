@@ -82,17 +82,17 @@ function seedData() {
       
       // Insert destinations
       const destinations = [
-        ['Valparai', 'Tamil Nadu', 'A scenic hill station known for tea estates and wildlife', '/images/valparai.jpg', 'Tea estates, Athirappilly Falls, Aliyar Dam'],
-        ['Ooty', 'Tamil Nadu', 'The Queen of Hill Stations with beautiful botanical gardens', '/images/ooty.jpg', 'Botanical Gardens, Ooty Lake, Nilgiri Mountain Railway'],
-        ['Yercaud', 'Tamil Nadu', 'A peaceful hill station with coffee plantations', '/images/yercaud.jpg', 'Yercaud Lake, Kiliyur Falls, Shevaroy Temple'],
-        ['Kanyakumari', 'Tamil Nadu', 'The southernmost tip of India with stunning sunsets', '/images/kanyakumari.jpg', 'Vivekananda Rock, Thiruvalluvar Statue, Sunrise & Sunset'],
-        ['Rameshwaram', 'Tamil Nadu', 'Sacred pilgrimage site with beautiful beaches', '/images/rameshwaram.jpg', 'Ramanathaswamy Temple, Pamban Bridge, Dhanushkodi'],
-        ['Varkala', 'Kerala', 'Beach town with dramatic cliffs and natural springs', '/images/varkala.jpg', 'Varkala Beach, Cliff views, Janardhana Temple'],
-        ['Wayanad', 'Kerala', 'Lush green paradise with wildlife and waterfalls', '/images/wayanad.jpg', 'Chembra Peak, Edakkal Caves, Soochipara Falls'],
-        ['Munnar', 'Kerala', 'Famous for tea gardens and misty mountains', '/images/munnar.jpg', 'Tea plantations, Eravikulam National Park, Mattupetty Dam'],
-        ['Chikkamagaluru', 'Karnataka', 'Coffee land with serene hills and temples', '/images/chikkamagaluru.jpg', 'Mullayanagiri Peak, Coffee estates, Baba Budangiri'],
-        ['Coorg', 'Karnataka', 'Scotland of India with coffee plantations', '/images/coorg.jpg', 'Abbey Falls, Raja\'s Seat, Coffee plantations'],
-        ['Mysore', 'Karnataka', 'Royal city with magnificent palaces and gardens', '/images/mysore.jpg', 'Mysore Palace, Chamundi Hills, Brindavan Gardens']
+        ['Valparai', 'Tamil Nadu', 'A scenic hill station known for tea estates and wildlife', '/images/valparai.jpeg', 'Tea estates, Athirappilly Falls, Aliyar Dam'],
+        ['Ooty', 'Tamil Nadu', 'The Queen of Hill Stations with beautiful botanical gardens', '/images/ooty.jpeg', 'Botanical Gardens, Ooty Lake, Nilgiri Mountain Railway'],
+        ['Yercaud', 'Tamil Nadu', 'A peaceful hill station with coffee plantations', '/images/yercaud.jpeg', 'Yercaud Lake, Kiliyur Falls, Shevaroy Temple'],
+        ['Kanyakumari', 'Tamil Nadu', 'The southernmost tip of India with stunning sunsets', '/images/Kanyakumari.jpeg', 'Vivekananda Rock, Thiruvalluvar Statue, Sunrise & Sunset'],
+        ['Rameshwaram', 'Tamil Nadu', 'Sacred pilgrimage site with beautiful beaches', '/images/Rameshwaram.jpeg', 'Ramanathaswamy Temple, Pamban Bridge, Dhanushkodi'],
+        ['Varkala', 'Kerala', 'Beach town with dramatic cliffs and natural springs', '/images/varkala.jpeg', 'Varkala Beach, Cliff views, Janardhana Temple'],
+        ['Wayanad', 'Kerala', 'Lush green paradise with wildlife and waterfalls', '/images/wayanadu.jpeg', 'Chembra Peak, Edakkal Caves, Soochipara Falls'],
+        ['Munnar', 'Kerala', 'Famous for tea gardens and misty mountains', '/images/Munnar.jpeg', 'Tea plantations, Eravikulam National Park, Mattupetty Dam'],
+        ['Chikkamagaluru', 'Karnataka', 'Coffee land with serene hills and temples', '/images/chikkumangalore.jpeg', 'Mullayanagiri Peak, Coffee estates, Baba Budangiri'],
+        ['Coorg', 'Karnataka', 'Scotland of India with coffee plantations', '/images/Coorg.jpeg', 'Abbey Falls, Raja\'s Seat, Coffee plantations'],
+        ['Mysore', 'Karnataka', 'Royal city with magnificent palaces and gardens', '/images/Mysore.jpeg', 'Mysore Palace, Chamundi Hills, Brindavan Gardens']
       ];
 
       const insertDest = db.prepare('INSERT INTO destinations (name, state, description, image_url, popular_attractions) VALUES (?, ?, ?, ?, ?)');
