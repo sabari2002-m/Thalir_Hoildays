@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Thalir Holidays</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="header-content">
+                <div class="contact-info">
+                    <span>📞 +91 98765 43210</span>
+                    <span>✉️ info@thalirholidays.com</span>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <div class="nav-content">
+                <div class="logo">
+                    <img src="/images/Thalir.logo.jpeg" alt="Thalir Holidays" class="logo-image">
+                    <span>Thalir Holidays</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/packages">Packages</a></li>
+                    <li><a href="/booking">Book Now</a></li>
+                    <li><a href="/admin" class="active">Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Admin Header -->
+    <div class="admin-header">
+        <h1>📊 Admin Dashboard</h1>
+        <p>Manage booking inquiries and customer requests</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Statistics -->
+        <div class="packages-grid" style="margin-bottom: 3rem;">
+            <div class="package-card">
+                <div class="package-header" style="background: linear-gradient(135deg, #2c5f2d, #97bc62);">
+                    <h3>📋 Total Bookings</h3>
+                </div>
+                <div class="package-body">
+                    <div style="text-align: center;">
+                        <span class="value price" id="totalBookings" style="font-size: 3rem;">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-header" style="background: linear-gradient(135deg, #f4a460, #e8944e);">
+                    <h3>⏳ Pending</h3>
+                </div>
+                <div class="package-body">
+                    <div style="text-align: center;">
+                        <span class="value price" id="pendingBookings" style="font-size: 3rem; color: #f4a460;">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-header" style="background: linear-gradient(135deg, #28a745, #20c997);">
+                    <h3>✅ Confirmed</h3>
+                </div>
+                <div class="package-body">
+                    <div style="text-align: center;">
+                        <span class="value price" id="confirmedBookings" style="font-size: 3rem; color: #28a745;">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bookings Table -->
+        <div class="section-title">
+            <h2>All Booking Inquiries</h2>
+            <p>View and manage customer booking requests</p>
+        </div>
+
+        <div class="bookings-table" id="bookings-container">
+            <div class="loading">Loading bookings...</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Thalir Holidays</h3>
+                <p>Your trusted partner for exploring the scenic beauty and rich culture of South India. We specialize in creating memorable travel experiences across Tamil Nadu, Kerala, and Karnataka.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/packages">All Packages</a></li>
+                    <li><a href="/booking">Book Now</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Popular Destinations</h3>
+                <ul>
+                    <li><a href="/packages">Ooty</a></li>
+                    <li><a href="/packages">Munnar</a></li>
+                    <li><a href="/packages">Coorg</a></li>
+                    <li><a href="/packages">Wayanad</a></li>
+                    <li><a href="/packages">Mysore</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>📍 123 Travel Street, Chennai, Tamil Nadu</li>
+                    <li>📞 +91 98765 43210</li>
+                    <li>✉️ info@thalirholidays.com</li>
+                    <li>🕐 Mon - Sat: 9:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Thalir Holidays. All rights reserved. | Designed with 💚 for travelers</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script>
+        // Initialize admin dashboard
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadBookings();
+            updateStatistics();
+        });
+
+        // Update booking statistics
+        async function updateStatistics() {
+            try {
+                const response = await fetch('http://localhost:3000/api/bookings');
+                const bookings = await response.json();
+
+                const total = bookings.length;
+                const pending = bookings.filter(b => b.status === 'pending').length;
+                const confirmed = bookings.filter(b => b.status === 'confirmed').length;
+
+                document.getElementById('totalBookings').textContent = total;
+                document.getElementById('pendingBookings').textContent = pending;
+                document.getElementById('confirmedBookings').textContent = confirmed;
+            } catch (error) {
+                console.error('Error loading statistics:', error);
+            }
+        }
+    </script>
+</body>
+</html>
