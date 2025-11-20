@@ -164,7 +164,7 @@
         // Update booking statistics
         async function updateStatistics() {
             try {
-                const response = await fetch('http://localhost:3000/api/bookings');
+                const response = await fetch(window.location.origin + '/api/bookings');
                 const bookings = await response.json();
 
                 const total = bookings.length;

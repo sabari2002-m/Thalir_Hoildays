@@ -1,5 +1,5 @@
-// API Base URL
-const API_URL = 'http://localhost:3000/api';
+// API Base URL - uses current domain automatically
+const API_URL = window.location.origin + '/api';
 
 // State management
 let allPackages = [];
