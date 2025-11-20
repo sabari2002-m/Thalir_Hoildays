@@ -254,9 +254,6 @@ function setupBookingForm() {
                 // Show success message
                 successMessage.classList.add('show');
                 
-                // Send WhatsApp notification
-                sendWhatsAppNotification(formData, result.booking_id);
-                
                 // Reset form
                 form.reset();
                 
@@ -491,28 +488,6 @@ async function deleteBooking(bookingId) {
         console.error('Error deleting booking:', error);
         alert('Error deleting booking. Please try again.');
     }
-}
-
-// Send WhatsApp notification for new booking
-function sendWhatsAppNotification(bookingData, bookingId) {
-    const phoneNumber = '917904004742'; // WhatsApp number (with country code, no +)
-    
-    // Format the message
-    const message = `🆕 *New Booking Received!*\n\n` +
-        `📋 *Booking ID:* ${bookingId}\n` +
-        `👤 *Name:* ${bookingData.customer_name}\n` +
-        `📧 *Email:* ${bookingData.email}\n` +
-        `📞 *Phone:* ${bookingData.phone}\n` +
-        `📅 *Travel Date:* ${bookingData.travel_date}\n` +
-        `👥 *Travelers:* ${bookingData.num_adults} Adults, ${bookingData.num_children} Children\n` +
-        `${bookingData.special_requests ? `💬 *Special Requests:* ${bookingData.special_requests}` : ''}\n\n` +
-        `Visit admin panel to view details.`;
-    
-    // Create WhatsApp URL
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    
-    // Open WhatsApp in new tab (user can choose to send or not)
-    window.open(whatsappUrl, '_blank');
 }
 
 // Initialize based on current page
