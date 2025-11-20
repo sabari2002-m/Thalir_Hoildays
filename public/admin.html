@@ -28,6 +28,7 @@
                     <li><a href="/packages">Packages</a></li>
                     <li><a href="/booking">Book Now</a></li>
                     <li><a href="/admin" class="active">Admin</a></li>
+                    <li><a href="#" onclick="adminLogout(); return false;" style="background-color: #dc3545;">Logout</a></li>
                 </ul>
             </div>
         </nav>
@@ -136,8 +137,26 @@
 
     <script src="/js/main.js"></script>
     <script>
+        // Check authentication on page load
+        if (!sessionStorage.getItem('adminAuth')) {
+            window.location.href = '/admin-login.html';
+        }
+
+        // Add logout button functionality
+        function adminLogout() {
+            sessionStorage.removeItem('adminAuth');
+            sessionStorage.removeItem('adminUser');
+            window.location.href = '/admin-login.html';
+        }
+
         // Initialize admin dashboard
         document.addEventListener('DOMContentLoaded', async () => {
+            // Display admin username
+            const adminUser = sessionStorage.getItem('adminUser');
+            if (adminUser) {
+                document.querySelector('.admin-header h1').textContent = `📊 Admin Dashboard - Welcome, ${adminUser}!`;
+            }
+            
             await loadBookings();
             updateStatistics();
         });

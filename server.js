@@ -8,6 +8,10 @@ const db = require('./database');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Admin credentials
+const ADMIN_USERNAME = 'Vettai';
+const ADMIN_PASSWORD = 'VettaiHoildays';
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,6 +19,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // API Routes
+
+// Admin login endpoint
+app.post('/api/admin/login', (req, res) => {
+  const { username, password } = req.body;
+  
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    res.json({ success: true, message: 'Login successful' });
+  } else {
+    res.json({ success: false, message: 'Invalid credentials' });
+  }
+});
 
 // Get all destinations
 app.get('/api/destinations', (req, res) => {
