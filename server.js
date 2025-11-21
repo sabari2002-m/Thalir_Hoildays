@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const nodemailer = require('nodemailer');
 const db = require('./database');
 
 const app = express();
@@ -11,6 +12,96 @@ const PORT = process.env.PORT || 3000;
 // Admin credentials
 const ADMIN_USERNAME = 'Vettai';
 const ADMIN_PASSWORD = 'VettaiHoildays';
+
+// Email configuration
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+// Function to send booking notification email
+async function sendBookingNotification(bookingData) {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: process.env.NOTIFICATION_EMAIL,
+    subject: `🎉 New Booking - ${bookingData.customer_name}`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #4CAF50; border-radius: 10px;">
+        <h2 style="color: #4CAF50; text-align: center;">🌴 New Thalir Holidays Booking! 🌴</h2>
+        <hr style="border: 1px solid #4CAF50;">
+        
+        <h3 style="color: #333;">Customer Details:</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 8px; font-weight: bold; width: 40%;">Name:</td>
+            <td style="padding: 8px;">${bookingData.customer_name}</td>
+          </tr>
+          <tr style="background-color: #f9f9f9;">
+            <td style="padding: 8px; font-weight: bold;">Email:</td>
+            <td style="padding: 8px;">${bookingData.email}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; font-weight: bold;">Phone:</td>
+            <td style="padding: 8px;">${bookingData.phone}</td>
+          </tr>
+        </table>
+
+        <h3 style="color: #333; margin-top: 20px;">Booking Details:</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr style="background-color: #f9f9f9;">
+            <td style="padding: 8px; font-weight: bold; width: 40%;">Package:</td>
+            <td style="padding: 8px;">${bookingData.package_title || 'General Inquiry'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; font-weight: bold;">Travel Date:</td>
+            <td style="padding: 8px;">${bookingData.travel_date}</td>
+          </tr>
+          <tr style="background-color: #f9f9f9;">
+            <td style="padding: 8px; font-weight: bold;">Adults:</td>
+            <td style="padding: 8px;">${bookingData.num_adults}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; font-weight: bold;">Children:</td>
+            <td style="padding: 8px;">${bookingData.num_children || 0}</td>
+          </tr>
+          <tr style="background-color: #f9f9f9;">
+            <td style="padding: 8px; font-weight: bold;">Special Requests:</td>
+            <td style="padding: 8px;">${bookingData.special_requests || 'None'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; font-weight: bold;">Booking ID:</td>
+            <td style="padding: 8px;"><strong>#${bookingData.booking_id}</strong></td>
+          </tr>
+          <tr style="background-color: #f9f9f9;">
+            <td style="padding: 8px; font-weight: bold;">Submitted At:</td>
+            <td style="padding: 8px;">${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</td>
+          </tr>
+        </table>
+
+        <div style="margin-top: 20px; padding: 15px; background-color: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px;">
+          <p style="margin: 0; color: #856404;"><strong>⚡ Action Required:</strong> Please contact the customer at <strong>${bookingData.phone}</strong> or reply to <strong>${bookingData.email}</strong></p>
+        </div>
+
+        <footer style="margin-top: 20px; text-align: center; color: #777; font-size: 12px;">
+          <p>This is an automated notification from Thalir Holidays booking system</p>
+          <p>📞 Contact: ${process.env.NOTIFICATION_PHONE}</p>
+        </footer>
+      </div>
+    `
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Booking notification email sent successfully');
+    return true;
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return false;
+  }
+}
 
 // Middleware
 app.use(cors());
@@ -108,7 +199,7 @@ app.get('/api/packages/:id', (req, res) => {
 });
 
 // Create a new booking
-app.post('/api/bookings', (req, res) => {
+app.post('/api/bookings', async (req, res) => {
   const { 
     package_id, 
     customer_name, 
@@ -135,15 +226,45 @@ app.post('/api/bookings', (req, res) => {
   db.run(
     query,
     [package_id, customer_name, email, phone, travel_date, num_adults, num_children || 0, special_requests || ''],
-    function(err) {
+    async function(err) {
       if (err) {
         res.status(500).json({ error: err.message });
         return;
       }
-      res.json({
-        success: true,
-        booking_id: this.lastID,
-        message: 'Booking inquiry submitted successfully!'
+      
+      const bookingId = this.lastID;
+      
+      // Get package details for email notification
+      const packageQuery = `
+        SELECT p.title, d.name as destination_name
+        FROM packages p
+        LEFT JOIN destinations d ON p.destination_id = d.id
+        WHERE p.id = ?
+      `;
+      
+      db.get(packageQuery, [package_id], async (err, packageInfo) => {
+        const bookingData = {
+          booking_id: bookingId,
+          customer_name,
+          email,
+          phone,
+          travel_date,
+          num_adults,
+          num_children: num_children || 0,
+          special_requests: special_requests || 'None',
+          package_title: packageInfo ? `${packageInfo.destination_name} - ${packageInfo.title}` : 'General Inquiry'
+        };
+        
+        // Send email notification (don't wait for it)
+        sendBookingNotification(bookingData).catch(error => {
+          console.error('Email notification failed:', error);
+        });
+        
+        res.json({
+          success: true,
+          booking_id: bookingId,
+          message: 'Booking inquiry submitted successfully!'
+        });
       });
     }
   );
