@@ -103,14 +103,14 @@ function seedData() {
 
       // Insert sample packages
       const packages = [
-        [1, 'Valparai Tea Estate Tour', '2 Days / 1 Night', 4999, 'Explore lush tea gardens and wildlife', 'Accommodation, Breakfast, Transport', 'Tea estate visit, Wildlife spotting, Scenic drives'],
-        [1, 'Valparai Nature Retreat', '3 Days / 2 Nights', 7999, 'Extended nature experience in Valparai', 'Accommodation, All meals, Transport, Guide', 'Tea plantation tour, Athirappilly Falls, Nature walks'],
-        [2, 'Ooty Hill Station Getaway', '2 Days / 1 Night', 5499, 'Classic Ooty experience with gardens and lake', 'Accommodation, Breakfast, Sightseeing', 'Botanical Garden, Ooty Lake, Doddabetta Peak'],
-        [2, 'Ooty Heritage Tour', '3 Days / 2 Nights', 8999, 'Experience Ooty\'s colonial charm', 'Accommodation, All meals, Toy train ride, Transport', 'Nilgiri Railway, Tea factory, Rose garden'],
-        [3, 'Yercaud Coffee Trails', '2 Days / 1 Night', 4499, 'Peaceful retreat in coffee country', 'Accommodation, Breakfast, Transport', 'Coffee plantation, Yercaud Lake, Viewpoints'],
-        [4, 'Kanyakumari Sunrise Special', '2 Days / 1 Night', 3999, 'Witness spectacular sunrise at land\'s end', 'Accommodation, Breakfast, Ferry ticket', 'Vivekananda Rock, Thiruvalluvar Statue, Beach'],
-        [5, 'Rameshwaram Pilgrimage', '2 Days / 1 Night', 4299, 'Spiritual journey to sacred Rameshwaram', 'Accommodation, Breakfast, Temple visit', 'Ramanathaswamy Temple, Dhanushkodi, Pamban Bridge'],
-        [6, 'Varkala Beach Relaxation', '3 Days / 2 Nights', 6999, 'Unwind on pristine cliffs and beaches', 'Accommodation, Breakfast, Ayurvedic massage', 'Beach activities, Cliff walks, Local markets'],
+        [1, 'Valparai Tea Estate Tour', '2 Days / 1 Night', 2499, 'Explore lush tea gardens and wildlife', 'Accommodation, Entry Tickets, Transport', 'Athirappilly Falls, Wildlife spotting, Scenic drives'],
+        [1, 'Valparai Nature Retreat', '3 Days / 2 Nights', 3999, 'Extended nature experience in Valparai', 'Accommodation, Entry Tickets, Transport, Guide', 'Tea plantation tour, Athirappilly Falls, Nature walks'],
+        [2, 'Ooty Hill Station Getaway', '2 Days / 1 Night', 2999, 'Classic Ooty experience with gardens and lake', 'Accommodation, Entry-Tickets, Sightseeing', 'Botanical Garden, Ooty Lake, Doddabetta Peak'],
+        [2, 'Ooty Heritage Tour', '3 Days / 2 Nights', 4499, 'Experience Ooty\'s colonial charm', 'Accommodation, Entry Tickets, Toy train ride, Transport', 'Nilgiri Railway, Tea factory, Rose garden'],
+        [3, 'Yercaud Coffee Trails', '2 Days / 1 Night', 2999, 'Peaceful retreat in coffee country', 'Accommodation, Breakfast, Transport', 'Coffee plantation, Yercaud Lake, Viewpoints'],
+        [4, 'Kanyakumari Sunrise Special', '2 Days / 1 Night', 2999, 'Witness spectacular sunrise at land\'s end', 'Accommodation, Thiruparappu Falls, Ferry ticket', 'Vivekananda Rock, Thiruvalluvar Statue, Beach'],
+        [5, 'Rameshwaram Pilgrimage', '2 Days / 1 Night', 2499, 'Spiritual journey to sacred Rameshwaram', 'Accommodation, Boating, Temple visit', 'Ramanathaswamy Temple, Dhanushkodi, Pamban Bridge'],
+        [6, 'Varkala Beach Relaxation', '3 Days / 2 Nights', 3599, 'Unwind on pristine cliffs and beaches', 'Accommodation, Kayaking, Jatayu', 'Beach activities, Cliff walks, Local markets'],
         [7, 'Wayanad Wildlife Adventure', '3 Days / 2 Nights', 9499, 'Explore forests, caves and waterfalls', 'Accommodation, All meals, Safari, Guide', 'Wildlife safari, Edakkal Caves, Chembra Peak trek'],
         [8, 'Munnar Tea Gardens', '2 Days / 1 Night', 5999, 'Immerse in tea country beauty', 'Accommodation, Breakfast, Tea factory tour', 'Tea plantations, Eravikulam Park, Mattupetty'],
         [8, 'Munnar Honeymoon Package', '3 Days / 2 Nights', 10999, 'Romantic getaway in misty hills', 'Luxury stay, All meals, Candlelight dinner, Transfers', 'Tea gardens, Scenic spots, Private tours'],

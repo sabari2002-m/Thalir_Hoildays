@@ -26,7 +26,7 @@ async function sendBookingNotification(bookingData) {
     subject: `🎉 New Booking - ${bookingData.customer_name}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #4CAF50; border-radius: 10px;">
-        <h2 style="color: #4CAF50; text-align: center;">🌴 New Thalir Holidays Booking! 🌴</h2>
+        <h2 style="color: #4CAF50; text-align: center;">🌴Thalir Holidays Booking! 🌴</h2>
         <hr style="border: 1px solid #4CAF50;">
         
         <h3 style="color: #333;">Customer Details:</h3>
