@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 const db = require('./database');
 
 const app = express();
@@ -13,25 +13,16 @@ const PORT = process.env.PORT || 3000;
 const ADMIN_USERNAME = 'Vettai';
 const ADMIN_PASSWORD = 'VettaiHoildays';
 
-// Email configuration - Using port 465 for Render compatibility
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-});
+// SendGrid Email configuration
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+}
 
 // Function to send booking notification email
 async function sendBookingNotification(bookingData) {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.NOTIFICATION_EMAIL,
+  const msg = {
+    to: process.env.NOTIFICATION_EMAIL || 'sabarimanickaraj269@gmail.com',
+    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@thalirholidays.com',
     subject: `🎉 New Booking - ${bookingData.customer_name}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #4CAF50; border-radius: 10px;">
@@ -92,18 +83,26 @@ async function sendBookingNotification(bookingData) {
 
         <footer style="margin-top: 20px; text-align: center; color: #777; font-size: 12px;">
           <p>This is an automated notification from Thalir Holidays booking system</p>
-          <p>📞 Contact: ${process.env.NOTIFICATION_PHONE}</p>
+          <p>📞 Contact: ${process.env.NOTIFICATION_PHONE || '7904004742'}</p>
         </footer>
       </div>
     `
   };
 
   try {
-    await transporter.sendMail(mailOptions);
-    console.log('Booking notification email sent successfully');
+    if (process.env.SENDGRID_API_KEY) {
+      await sgMail.send(msg);
+      console.log('Booking notification email sent successfully via SendGrid');
+    } else {
+      console.log('SendGrid not configured - Email would have been sent to:', msg.to);
+      console.log('Booking details:', bookingData);
+    }
     return true;
   } catch (error) {
     console.error('Error sending email:', error);
+    if (error.response) {
+      console.error('SendGrid error:', error.response.body);
+    }
     return false;
   }
 }
