@@ -88,11 +88,7 @@ function seedData() {
         ['Kanyakumari', 'Tamil Nadu', 'The southernmost tip of India with stunning sunsets', '/images/Kanyakumari.jpeg', 'Vivekananda Rock, Thiruvalluvar Statue, Sunrise & Sunset'],
         ['Rameshwaram', 'Tamil Nadu', 'Sacred pilgrimage site with beautiful beaches', '/images/Rameshwaram.jpeg', 'Ramanathaswamy Temple, Pamban Bridge, Dhanushkodi'],
         ['Varkala', 'Kerala', 'Beach town with dramatic cliffs and natural springs', '/images/varkala.jpeg', 'Varkala Beach, Cliff views, Janardhana Temple'],
-        ['Wayanad', 'Kerala', 'Lush green paradise with wildlife and waterfalls', '/images/wayanadu.jpeg', 'Chembra Peak, Edakkal Caves, Soochipara Falls'],
-        ['Munnar', 'Kerala', 'Famous for tea gardens and misty mountains', '/images/Munnar.jpeg', 'Tea plantations, Eravikulam National Park, Mattupetty Dam'],
-        ['Chikkamagaluru', 'Karnataka', 'Coffee land with serene hills and temples', '/images/chikkumangalore.jpeg', 'Mullayanagiri Peak, Coffee estates, Baba Budangiri'],
-        ['Coorg', 'Karnataka', 'Scotland of India with coffee plantations', '/images/Coorg.jpeg', 'Abbey Falls, Raja\'s Seat, Coffee plantations'],
-        ['Mysore', 'Karnataka', 'Royal city with magnificent palaces and gardens', '/images/Mysore.jpeg', 'Mysore Palace, Chamundi Hills, Brindavan Gardens']
+        ['Munnar', 'Kerala', 'Famous for tea gardens and misty mountains', '/images/Munnar.jpeg', 'Tea plantations, Eravikulam National Park, Mattupetty Dam']
       ];
 
       const insertDest = db.prepare('INSERT INTO destinations (name, state, description, image_url, popular_attractions) VALUES (?, ?, ?, ?, ?)');
@@ -111,12 +107,8 @@ function seedData() {
         [4, 'Kanyakumari Sunrise Special', '2 Days / 1 Night', 2999, 'Witness spectacular sunrise at land\'s end', 'Accommodation, Thiruparappu Falls, Ferry ticket', 'Vivekananda Rock, Thiruvalluvar Statue, Beach'],
         [5, 'Rameshwaram Pilgrimage', '2 Days / 1 Night', 2499, 'Spiritual journey to sacred Rameshwaram', 'Accommodation, Boating, Temple visit', 'Ramanathaswamy Temple, Dhanushkodi, Pamban Bridge'],
         [6, 'Varkala Beach Relaxation', '3 Days / 2 Nights', 3599, 'Unwind on pristine cliffs and beaches', 'Accommodation, Kayaking, Jatayu', 'Beach activities, Cliff walks, Local markets'],
-        [7, 'Wayanad Wildlife Adventure', '3 Days / 2 Nights', 9499, 'Explore forests, caves and waterfalls', 'Accommodation, All meals, Safari, Guide', 'Wildlife safari, Edakkal Caves, Chembra Peak trek'],
-        [8, 'Munnar Tea Gardens', '2 Days / 1 Night', 5999, 'Immerse in tea country beauty', 'Accommodation, Breakfast, Tea factory tour', 'Tea plantations, Eravikulam Park, Mattupetty'],
-        [8, 'Munnar Honeymoon Package', '3 Days / 2 Nights', 10999, 'Romantic getaway in misty hills', 'Luxury stay, All meals, Candlelight dinner, Transfers', 'Tea gardens, Scenic spots, Private tours'],
-        [9, 'Chikkamagaluru Coffee Experience', '2 Days / 1 Night', 5299, 'Discover coffee culture and hills', 'Accommodation, Breakfast, Coffee tour', 'Coffee plantation, Mullayanagiri, Hirekolale Lake'],
-        [10, 'Coorg Nature Escape', '3 Days / 2 Nights', 8499, 'Experience Scotland of India', 'Accommodation, All meals, Transport, Activities', 'Abbey Falls, Coffee estates, Raja\'s Seat'],
-        [11, 'Mysore Royal Heritage', '2 Days / 1 Night', 4799, 'Explore royal palaces and gardens', 'Accommodation, Breakfast, Palace entry', 'Mysore Palace, Chamundi Hills, Brindavan Gardens']
+        [7, 'Munnar Tea Gardens', '2 Days / 1 Night', 5999, 'Immerse in tea country beauty', 'Accommodation, Breakfast, Tea factory tour', 'Tea plantations, Eravikulam Park, Mattupetty'],
+        [7, 'Munnar Honeymoon Package', '3 Days / 2 Nights', 10999, 'Romantic getaway in misty hills', 'Luxury stay, All meals, Candlelight dinner, Transfers', 'Tea gardens, Scenic spots, Private tours']
       ];
 
       const insertPkg = db.prepare('INSERT INTO packages (destination_id, title, duration, price, description, inclusions, highlights) VALUES (?, ?, ?, ?, ?, ?, ?)');
