@@ -129,7 +129,7 @@ nav {
 /* Hero Section */
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url('/images/kerala-vs-tamilnadu-south-india_orig.jpg') center/cover;
+    url('/images/front img.jpeg') center/cover;
   color: var(--white);
   text-align: center;
   padding: 8rem 2rem 6rem;
