@@ -52,7 +52,7 @@ function displayDestinations(destinations) {
     }
 
     container.innerHTML = destinations.map(dest => `
-        <div class="destination-card" onclick="window.location.href='/packages'">
+        <div class="destination-card" onclick="window.location.href='/packages.html?destination=${dest.id}'">
             <div class="destination-image">
                 ${dest.image_url && dest.image_url !== '/images/' + dest.name.toLowerCase() + '.jpg' 
                     ? `<img src="${dest.image_url}" alt="${dest.name}" onerror="this.parentElement.innerHTML='${getDestinationEmoji(dest.name)}'">` 
@@ -75,7 +75,16 @@ function displayDestinations(destinations) {
 // Load packages for packages page
 async function loadPackages() {
     try {
-        const response = await fetch(`${API_URL}/packages`);
+        // Check if there's a destination filter in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const destinationId = urlParams.get('destination');
+        
+        let url = `${API_URL}/packages`;
+        if (destinationId) {
+            url = `${API_URL}/packages/destination/${destinationId}`;
+        }
+        
+        const response = await fetch(url);
         const packages = await response.json();
         allPackages = packages;
         displayPackages(packages);
