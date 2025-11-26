@@ -9,10 +9,6 @@ const db = require('./database');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Admin credentials
-const ADMIN_USERNAME = 'Vettai';
-const ADMIN_PASSWORD = 'VettaiHoildays';
-
 // SendGrid Email configuration
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -114,17 +110,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // API Routes
-
-// Admin login endpoint
-app.post('/api/admin/login', (req, res) => {
-  const { username, password } = req.body;
-  
-  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    res.json({ success: true, message: 'Login successful' });
-  } else {
-    res.json({ success: false, message: 'Invalid credentials' });
-  }
-});
 
 // Get all destinations
 app.get('/api/destinations', (req, res) => {
@@ -274,57 +259,6 @@ app.post('/api/bookings', async (req, res) => {
   );
 });
 
-// Get all bookings (admin)
-app.get('/api/bookings', (req, res) => {
-  const query = `
-    SELECT b.*, p.title as package_title, d.name as destination_name
-    FROM bookings b
-    LEFT JOIN packages p ON b.package_id = p.id
-    LEFT JOIN destinations d ON p.destination_id = d.id
-    ORDER BY b.created_at DESC
-  `;
-
-  db.all(query, (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json(rows);
-  });
-});
-
-// Update booking status (admin)
-app.put('/api/bookings/:id/status', (req, res) => {
-  const { status } = req.body;
-  
-  db.run(
-    'UPDATE bookings SET status = ? WHERE id = ?',
-    [status, req.params.id],
-    function(err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({ success: true, message: 'Status updated' });
-    }
-  );
-});
-
-// Delete booking (admin)
-app.delete('/api/bookings/:id', (req, res) => {
-  db.run(
-    'DELETE FROM bookings WHERE id = ?',
-    [req.params.id],
-    function(err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({ success: true, message: 'Booking deleted successfully' });
-    }
-  );
-});
-
 // Upload destination image endpoint
 app.post('/api/destinations/:id/image', (req, res) => {
   const { image_url } = req.body;
@@ -353,10 +287,6 @@ app.get('/packages', (req, res) => {
 
 app.get('/booking', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'booking.html'));
-});
-
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
 // Start server

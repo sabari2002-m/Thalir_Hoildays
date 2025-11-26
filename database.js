@@ -82,13 +82,13 @@ function seedData() {
       
       // Insert destinations
       const destinations = [
-        ['Valparai', 'Tamil Nadu', 'A scenic hill station known for tea estates and wildlife', '/images/valparai.jpeg', 'Tea estates, Athirappilly Falls, Aliyar Dam'],
+        ['Valparai', 'Tamil Nadu', 'A scenic hill station known for tea estates and wildlife', '/images/valparai.jpeg', 'Monkey Falls,Nallamudi view point, Athirappilly Falls, Aliyar Dam'],
         ['Ooty', 'Tamil Nadu', 'The Queen of Hill Stations with beautiful botanical gardens', '/images/ooty.jpeg', 'Botanical Gardens, Ooty Lake, Nilgiri Mountain Railway'],
-        ['Yercaud', 'Tamil Nadu', 'A peaceful hill station with coffee plantations', '/images/yercaud.jpeg', 'Yercaud Lake, Kiliyur Falls, Shevaroy Temple'],
-        ['Kanyakumari', 'Tamil Nadu', 'The southernmost tip of India with stunning sunsets', '/images/Kanyakumari.jpeg', 'Vivekananda Rock, Thiruvalluvar Statue, Sunrise & Sunset'],
-        ['Rameshwaram', 'Tamil Nadu', 'Sacred pilgrimage site with beautiful beaches', '/images/Rameshwaram.jpeg', 'Ramanathaswamy Temple, Pamban Bridge, Dhanushkodi'],
+        ['Yercaud', 'Tamil Nadu', 'A peaceful hill station with coffee plantations', '/images/yercaud.jpeg', 'Yercaud Lake, Kiliyur Falls, Peeku-Park'],
+        ['Kanyakumari', 'Tamil Nadu', 'The southernmost tip of India with stunning sunsets', '/images/Kanyakumari.jpeg', 'Vivekananda Rock, Thiruvalluvar Statue,thirparappu falls & thottiPalam Sunrise & Sunset'],
+        ['Rameshwaram', 'Tamil Nadu', 'Sacred pilgrimage site with beautiful beaches', '/images/Rameshwaram.jpeg', 'Ramanathaswamy Temple, Pamban Bridge,Island Boating, Dhanushkodi'],
         ['Varkala', 'Kerala', 'Beach town with dramatic cliffs and natural springs', '/images/varkala.jpeg', 'Varkala Beach, Cliff views, Janardhana Temple'],
-        ['Munnar', 'Kerala', 'Famous for tea gardens and misty mountains', '/images/Munnar.jpeg', 'Tea plantations, Eravikulam National Park, Mattupetty Dam']
+        ['Munnar', 'Kerala', 'Famous for tea gardens and misty mountains', '/images/Munnar.jpeg', 'Jeep Safari, Eravikulam National Park, Mattupetty Dam']
       ];
 
       const insertDest = db.prepare('INSERT INTO destinations (name, state, description, image_url, popular_attractions) VALUES (?, ?, ?, ?, ?)');
@@ -100,14 +100,14 @@ function seedData() {
       // Insert sample packages
       const packages = [
         [1, 'Valparai Tea Estate Tour', '2 Days / 1 Night', 2499, 'Explore lush tea gardens and wildlife', 'Accommodation, Entry Tickets, Transport', 'Athirappilly Falls, Wildlife spotting, Scenic drives'],
-        [1, 'Valparai Nature Retreat', '3 Days / 2 Nights', 3999, 'Extended nature experience in Valparai', 'Accommodation, Entry Tickets, Transport, Guide', 'Tea plantation tour, Athirappilly Falls, Nature walks'],
+        [1, 'Valparai Nature Retreat', '3 Days / 2 Nights', 3699, 'Extended nature experience in Valparai', 'Accommodation, Entry Tickets, Transport, Guide', 'Tea plantation tour, Athirappilly Falls, Nature walks'],
         [2, 'Ooty Hill Station Getaway', '2 Days / 1 Night', 2999, 'Classic Ooty experience with gardens and lake', 'Accommodation, Entry-Tickets, Sightseeing', 'Botanical Garden, Ooty Lake, Doddabetta Peak'],
         [2, 'Ooty Heritage Tour', '3 Days / 2 Nights', 4499, 'Experience Ooty\'s colonial charm', 'Accommodation, Entry Tickets, Toy train ride, Transport', 'Nilgiri Railway, Tea factory, Rose garden'],
-        [3, 'Yercaud Coffee Trails', '2 Days / 1 Night', 2999, 'Peaceful retreat in coffee country', 'Accommodation, Breakfast, Transport', 'Coffee plantation, Yercaud Lake, Viewpoints'],
-        [4, 'Kanyakumari Sunrise Special', '2 Days / 1 Night', 2999, 'Witness spectacular sunrise at land\'s end', 'Accommodation, Thiruparappu Falls, Ferry ticket', 'Vivekananda Rock, Thiruvalluvar Statue, Beach'],
-        [5, 'Rameshwaram Pilgrimage', '2 Days / 1 Night', 2499, 'Spiritual journey to sacred Rameshwaram', 'Accommodation, Boating, Temple visit', 'Ramanathaswamy Temple, Dhanushkodi, Pamban Bridge'],
+        [3, 'Yercaud Coffee Trails', '2 Days / 1 Night', 2999, 'Peaceful retreat in coffee country', 'Accommodation, Peeku-Park, Transport', 'Boating, Entry-fees, Viewpoints'],
+        [4, 'Kanyakumari Sunrise Special', '2 Days / 1 Night', 2999, 'Witness spectacular sunrise at land\'s end', 'Accommodation, Thiruparappu Falls, Ferry ticket', 'Transport, Sightseeing'],
+        [5, 'Rameshwaram Pilgrimage', '2 Days / 1 Night', 2799, 'Spiritual journey to sacred Rameshwaram', 'Accommodation, Island Boating, Temple visit', 'Ramanathaswamy Temple, Dhanushkodi, Pamban Bridge'],
         [6, 'Varkala Beach Relaxation', '3 Days / 2 Nights', 3599, 'Unwind on pristine cliffs and beaches', 'Accommodation, Kayaking, Jatayu', 'Beach activities, Cliff walks, Local markets'],
-        [7, 'Munnar Tea Gardens', '2 Days / 1 Night', 5999, 'Immerse in tea country beauty', 'Accommodation, Breakfast, Tea factory tour', 'Tea plantations, Eravikulam Park, Mattupetty'],
+        [7, 'Munnar Tea Gardens', '3 Days / 1 Night', 4999, 'Immerse in tea country beauty', 'Accommodation, Entry Tickets, Jeep Safari, Eravikulam Park, Mattupetty'],
         [7, 'Munnar Honeymoon Package', '3 Days / 2 Nights', 10999, 'Romantic getaway in misty hills', 'Luxury stay, All meals, Candlelight dinner, Transfers', 'Tea gardens, Scenic spots, Private tours']
       ];
 
