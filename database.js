@@ -107,7 +107,7 @@ function seedData() {
         [4, 'Kanyakumari Sunrise Special', '2 Days / 1 Night', 2999, 'Witness spectacular sunrise at land\'s end', 'Accommodation, Thiruparappu Falls, Ferry ticket', 'Transport, Sightseeing'],
         [5, 'Rameshwaram Pilgrimage', '2 Days / 1 Night', 2799, 'Spiritual journey to sacred Rameshwaram', 'Accommodation, Island Boating, Temple visit', 'Ramanathaswamy Temple, Dhanushkodi, Pamban Bridge'],
         [6, 'Varkala Beach Relaxation', '3 Days / 2 Nights', 3599, 'Unwind on pristine cliffs and beaches', 'Accommodation, Kayaking, Jatayu', 'Beach activities, Cliff walks, Local markets'],
-        [7, 'Munnar Tea Gardens', '3 Days / 1 Night', 4999, 'Immerse in tea country beauty', 'Accommodation, Entry Tickets, Jeep Safari, Eravikulam Park, Mattupetty'],
+        [7, 'Munnar Tea Gardens', '3 Days / 2 Night', 4999, 'Immerse in tea country beauty', 'Accommodation, Entry Tickets, Jeep Safari, Eravikulam Park, Mattupetty'],
         [7, 'Munnar Honeymoon Package', '3 Days / 2 Nights', 10999, 'Romantic getaway in misty hills', 'Luxury stay, All meals, Candlelight dinner, Transfers', 'Tea gardens, Scenic spots, Private tours']
       ];
 
