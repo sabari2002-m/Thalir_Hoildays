@@ -293,3 +293,6 @@ app.get('/booking', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// Export for Vercel
+module.exports = app;
